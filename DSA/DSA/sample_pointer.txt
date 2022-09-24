@@ -1,0 +1,146 @@
+#include <stdio.h>
+
+int main() {
+    int x;
+
+    printf("%d\n", & x);
+    printf("%p\n", & x);
+
+    x = 10;
+
+    printf("The address in decimal: %d\n", & x);
+    printf("The address in hexa: %p\n", & x);
+
+    printf("The value at address: %p is : %d\n", & x, * & x);
+    printf("The value at address: %p is : %d\n", & x, x);
+
+    return 0;
+}
+Code 2:
+#include <stdio.h>
+
+int main() {
+    int x = 10;
+    int * ptr;
+
+    ptr = & x;
+    // also explain the difference in
+    //int* ptr = &x;
+
+    printf("%d \n", & x);
+    printf("%d \n", ptr);
+    printf("%d \n", * & x);
+    printf("%d \n", * ptr);
+    printf("%d \n", & ptr);
+
+    x = 20;
+    * & x = 30;
+    * ptr = 40;
+
+    printf("%d \n", x);
+
+    return 0;
+}
+Pointer to Pointer
+#include <stdio.h>
+
+int main() {
+    int x = 10;
+    int * ptr1;
+    // its a pointer that can point towards a pointer type of a memory
+    int * * ptr2;
+
+    ptr1 = & x;
+    ptr2 = & ptr1;
+
+    printf("%d\n", x);
+    printf("%d\n", & x);
+    printf("%d\n", ptr1);
+    printf("%d\n", * ptr1);
+    printf("%d\n", ptr2);
+    printf("%d\n", * ptr2);
+    printf("%d\n", ** ptr2);
+
+    return 0;
+}
+Pass by Value
+#include <stdio.h>
+
+/* function declaration */
+void swap(int a, int b) {
+    int temp = a;
+    a = b;
+    b = temp;
+}
+
+int main() {
+
+    /* local variable definition */
+    int a = 100;
+    int b = 200;
+
+    printf("Before swap, value of a : %d\n", a);
+    printf("Before swap, value of b : %d\n", b);
+
+    /* calling a function to swap the values */
+    swap(a, b);
+
+    printf("After swap, value of a : %d\n", a);
+    printf("After swap, value of b : %d\n", b);
+
+    return 0;
+}
+Pass by Reference
+#include <stdio.h>
+
+/* function declaration */
+void swap(int & a, int & b) {
+int temp = a;
+a = b;
+b = temp;
+}
+
+int main() {
+
+/* local variable definition */
+int a = 100;
+int b = 200;
+
+printf("Before swap, value of a : %d\n", a);
+printf("Before swap, value of b : %d\n", b);
+
+/* calling a function to swap the values */
+swap(a, b);
+
+printf("After swap, value of a : %d\n", a);
+printf("After swap, value of b : %d\n", b);
+
+return 0;
+}
+Pass by Pointer
+#include <stdio.h>
+
+/* function declaration */
+void swap(int * a, int * b) {
+int temp = * a;
+* a = * b;
+* b = temp;
+}
+
+int main() {
+
+/* local variable definition */
+int a = 100;
+int b = 200;
+
+printf("Before swap, value of a : %d\n", a);
+printf("Before swap, value of b : %d\n", b);
+
+/* calling a function to swap the values */
+swap( & a, & b);
+
+printf("After swap, value of a : %d\n", a);
+printf("After swap, value of b : %d\n", b);
+
+return 0;
+}
