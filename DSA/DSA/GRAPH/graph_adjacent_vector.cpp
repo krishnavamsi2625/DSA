@@ -1,4 +1,4 @@
-// Online C++ compiler to run C++ program online
+//Implemented using adjacency matrix and 2D Vector for implementation
 #include <iostream>
 #include<vector>
 #include<queue>
@@ -19,6 +19,8 @@ class Graph
             bool * visited=new  bool[vertex];
             return visited;
         }
+        void search(int start,int dst);
+        void searchUtil(int start,int dst,vector<int>path,vector<vector<int>>&allPaths,vector<bool>&visited);
 };
 Graph::Graph(int vertex,int edges)
 {
@@ -106,6 +108,45 @@ void Graph::bfs()
         }
     }
 }
+void Graph::searchUtil(int start,int dst,vector<int>path,vector<vector<int>>&allPaths,vector<bool>&visited)
+{
+    path.push_back(start);
+    if(start==dst)
+    {
+        allPaths.push_back(path);
+        visited[start]=false;
+        return;
+    }
+    for(int i=0;i<vertex;i++)
+    {   
+        if(adj[start][i]==1 && !(visited[i]))
+        {   visited[i]=true;
+            searchUtil(i,dst,path,allPaths,visited);
+        }
+    }
+    visited[start]=false;
+}
+void Graph::search(int start,int dst)
+{
+    vector<int>path;
+    vector<vector<int>>allPaths;
+    vector<bool>visited(vertex,false);
+    visited[start]=true;
+    searchUtil(start,dst,path,allPaths,visited);
+    int c=1;
+    for(auto path:allPaths)
+    {
+        cout<<"Path "<<c<<":= ";
+        for(int v:path)
+        {
+            cout<<v<<"->";
+        }
+        c++;
+        cout<<"\n";
+        
+    }
+    
+}
 int main() 
 {
     int v=9,e=8;
@@ -121,6 +162,8 @@ int main()
     cout<<"DFS:- ";
     G.dfs();
     cout<<"\nBFS:- ";
-    G.bfs();    
+    G.bfs();
+    cout<<"\nPaths between 0 and 4 : \n";
+    G.search(0,4);
     return 0;
 }
